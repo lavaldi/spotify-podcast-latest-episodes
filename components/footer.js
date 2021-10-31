@@ -6,7 +6,7 @@ export default function Footer() {
       <hr />
       <ul className={styles.navItems}>
         <li className={styles.navItem}>
-          <a href="https://github.com/lavaldi">
+          by <a href="https://github.com/lavaldi">
             <em>lavaldi</em>
           </a>
         </li>

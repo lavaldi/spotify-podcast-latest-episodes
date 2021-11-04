@@ -5,7 +5,7 @@ import fetcher from "../lib/fetcher";
 import Layout from "../components/layout";
 
 export default function Page({ authData }) {
-  const { data } = useSWR("/api/shows", fetcher);
+  const { data } = useSWR("/api/episodes", fetcher);
 
   return (
     <Layout>
@@ -13,12 +13,17 @@ export default function Page({ authData }) {
       {authData ? (
         <>
           <p>
-            The latest episodes of your favorite podcasts will appear here 🎧
+            The latest episodes of your favorite podcasts 🎧 will appear here 👇
           </p>
-          {data?.items.map(({ show }) => (
-            <div key={show.id}>
-              <h1>{show.name}</h1>
-              <Image alt={show.name} src={show.images[0]?.url} width="100" height="100" />
+          {data?.episodes.map((episode) => (
+            <div key={episode.id}>
+              <h1>{episode.name}</h1>
+              <Image
+                alt={episode.name}
+                src={episode.images[0]?.url}
+                width="100"
+                height="100"
+              />
             </div>
           ))}
         </>

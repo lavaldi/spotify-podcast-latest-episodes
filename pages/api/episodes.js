@@ -10,7 +10,9 @@ export default async function handler(req, res) {
     const response = await getUsersShows(accessToken);
     const { items } = await response.json();
 
-    res.status(200).json({ items });
+    const episodes = items.filter((item) => !item.resume_point.fully_played);
+
+    res.status(200).json({ episodes });
   } catch (error) {
     console.error(error);
     res.status(500).json({

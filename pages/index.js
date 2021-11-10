@@ -18,6 +18,7 @@ export default function Page({ authData }) {
           {data?.episodes.map((episode) => (
             <div key={episode.id}>
               <h1>{episode.name}</h1>
+              <p>{episode.release_date}</p>
               <Image
                 alt={episode.name}
                 src={episode.images[0]?.url}

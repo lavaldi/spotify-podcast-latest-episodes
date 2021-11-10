@@ -1,4 +1,4 @@
-import { getUsersShows } from "../../lib/spotify";
+import { getEpisodes } from "../../lib/spotify";
 import { getSession } from "next-auth/react";
 
 export default async function handler(req, res) {
@@ -7,10 +7,13 @@ export default async function handler(req, res) {
   } = await getSession({ req });
 
   try {
-    const response = await getUsersShows(accessToken);
-    const { items } = await response.json();
-
-    const episodes = items.filter((item) => !item.resume_point.fully_played);
+    const showsEpisodes = await getEpisodes(accessToken);
+    const items = showsEpisodes.flatMap((show) => show.items);
+    const episodes = items
+      .filter((item) => !item.resume_point.fully_played)
+      .sort(function (a, b) {
+        return new Date(b.release_date) - new Date(a.release_date);
+      });
 
     res.status(200).json({ episodes });
   } catch (error) {

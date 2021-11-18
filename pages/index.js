@@ -1,6 +1,7 @@
 import { getSession } from "next-auth/react";
 import useSWR from "swr";
 import Image from "next/image";
+// import SpotifyPlayer from "react-spotify-web-playback";
 import fetcher from "../lib/fetcher";
 import Layout from "../components/layout";
 
@@ -27,6 +28,7 @@ export default function Page({ authData }) {
               />
             </div>
           ))}
+          {/* <SpotifyPlayer token={authData.token.spotifyAccessToken} uris={data?.uris} /> */}
         </>
       ) : (
         <p>Not signed in 🔒</p>

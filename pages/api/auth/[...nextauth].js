@@ -7,7 +7,7 @@ export default NextAuth({
   providers: [
     SpotifyProvider({
       authorization:
-        "https://accounts.spotify.com/authorize?scope=user-read-email,user-library-read,user-read-playback-position",
+        "https://accounts.spotify.com/authorize?scope=user-read-email,user-library-read,user-read-playback-position,streaming,user-read-private,user-read-playback-state,user-modify-playback-state",
       clientId: process.env.SPOTIFY_CLIENT_ID,
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     }),
@@ -16,7 +16,7 @@ export default NextAuth({
   secret: process.env.SECRET,
 
   session: {
-    jwt: true,
+    strategy: "jwt",
   },
 
   jwt: {
@@ -27,6 +27,7 @@ export default NextAuth({
     async jwt({ token, account }) {
       if (account) {
         token.accessToken = account.refresh_token;
+        token.spotifyAccessToken = account.access_token;
       }
       return token;
     },

@@ -14,8 +14,9 @@ export default async function handler(req, res) {
       .sort(function (a, b) {
         return new Date(b.release_date) - new Date(a.release_date);
       });
+    const uris = episodes.map((episode) => episode.uri);
 
-    res.status(200).json({ episodes });
+    res.status(200).json({ episodes, uris });
   } catch (error) {
     console.error(error);
     res.status(500).json({
